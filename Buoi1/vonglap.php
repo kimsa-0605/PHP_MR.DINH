@@ -22,7 +22,7 @@
     <?php
     // Vòng lặp for
         for ($i=1; $i<=5; $i++ ) {
-            for ($j=1; $j<=10; $j++ ){
+            for ($j=1; $j<=6; $j++ ){
                 echo "<div class='ovuong'></div>";
             }
             
