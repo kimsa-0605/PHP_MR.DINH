@@ -13,7 +13,7 @@
             margin-left: 20px;
             width: 40px;
             height: 40px;
-            background-color: aquamarine;
+            background-color: #FF6699;
             margin-bottom: 20px;
         }
     </style>
