@@ -109,12 +109,19 @@
     <div class="container">
         <form action="DHHS.php" method="POST">
             <p class="title"><h2>BANG DIEM CUA EM</h2></p>
-            <p>Semester1 <input type="number" name="ky1" value="<?php echo $s1 ?>" id="semester1"></p>
-            <p>Semester2 <input type="number" name="ky2" value="<?php echo $s2 ?>" id="semester2"></p>
+            <p>Semester 1 <input type="number" name="ky1" value="<?php echo $s1 ?>" id="semester1"></p>
+            <p>Semester 2 <input type="number" name="ky2" value="<?php echo $s2 ?>" id="semester2"></p>
             <p>Year:
                 <select name="year" value="<?php echo $year ?>">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                    <?php 
+                        if ($_POST["year"] == 1) {
+                            echo '<option value="1">1</option>
+                            <option value="2">2</option>';
+                        }else {
+                            echo '<option value="2">2</option>
+                            <option value="1">1</option>';
+                        }
+                    ?>
                 </select>
             </p>
 
