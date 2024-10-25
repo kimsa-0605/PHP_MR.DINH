@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .save {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <form action="themHocSinh" method="post">
+        <h3>Thêm sinh viên</h3>
+        Họ và tên: <input type="text" name="fullname" placeholder="Họ và tên">
+        Giới tính: <input type="text" name="gender" placeholder="Giới tính">
+        Ngày sinh: <input type="text" name="address" placeholder="Quê quán">
+        Ngành học: <input type="text" name="nganh" placeholder="Ngành học">
+        <button type="submit" class="save" name="action" value="save">Save</button>
+    </form>
+</body>
+</html>
