@@ -18,34 +18,24 @@
             width: 800px;
             margin-top: 10px;
             border: 1px solid black;
-            border-collapse:collapse;
+            border-collapse: collapse;
         }
-
-        .tbl tr th {
-            border-left: 1px solid black;
-            border-bottom:  1px solid black;
-        }
-
-        .tbl tr td {
+        .tbl th, .tbl td {
             text-align: center;
             border: 1px solid black;
-            border-collapse:collapse;
+            padding: 8px;
         }
-
         .themmoi {
             margin: 10px;
         }
-
         .find {
             display: flex;
             gap: 5px;
             justify-content: center;
         }
-
         .title {
             text-align: center;
         }
-
         .themsp {
             width: 400px;
             display: flex;
@@ -53,47 +43,111 @@
             gap: 10px;
         }
         .save {
-            width: 60px;
+            width: 100px;
         }
     </style>
 </head>
 <body>
-    <?php
-        function generateStudentId() {
-            $prefix = 'SV'; // Tiền tố cho mã sinh viên
-            $randomNumber = rand(1000, 9999); // Tạo số ngẫu nhiên từ 1000 đến 9999
-            return $prefix . $randomNumber; // Kết hợp tiền tố và số ngẫu nhiên
+    
+    <div class="container">
+    <?php 
+        session_start();
+        error_reporting(0);
+        if (!isset($_SESSION["Students"])) {
+            $_SESSION["Students"] = [];
         }
 
-         $Students = array(
-            generateStudentId() => array(
-                "name" => "Hồ Ly Kim Sa",
-                "birth" => "06/05/2005",
-                "gender" => "Nữ",
-                "quequan" => "Quảng Trị",
-                "nganhhoc" => "Công nghệ thông tin"
+        // Kiểm tra nếu có hành động gửi lên
+        if (isset($_POST['action'])) {
+            $action = $_POST['action'];
 
-            ),
-            generateStudentId() => array(
-                "name" => "Hồ Ly Kim Sa",
-                "birth" => "06/05/2005",
-                "gender" => "Nữ",
-                "quequan" => "Quảng Trị",
-                "nganhhoc" => "Công nghệ thông tin"
+            // Thêm sinh viên
+            if ($action == "save") {
+                $masv = $_POST['masv'];
+                $fullname = $_POST['fullname'];
+                $gender = $_POST['gender'];
+                $address = $_POST['address'];
+                $birth = $_POST['birth'];
+                $nganh = $_POST['nganh'];
 
-            ),
-            generateStudentId() => array(
-                "name" => "Hồ Ly Kim Sa",
-                "birth" => "06/05/2005",
-                "gender" => "Nữ",
-                "quequan" => "Quảng Trị",
-                "nganhhoc" => "Công nghệ thông tin"
+                $thongtin = [
+                    "masv" => $masv,
+                    "name" => $fullname,
+                    "birth" => $birth,
+                    "gender" => $gender,
+                    "quequan" => $address,
+                    "nganhhoc" => $nganh,
+                ];
 
-            )
-        );
+                array_push($_SESSION["Students"], $thongtin);
+            }
 
+            // Hiển thị form thêm sinh viên khi có hành động "them"
+            if ($action == "them") {
+                echo '
+                    <form class="themsp" action="themHocSinh.php" method="post">
+                        <h3>Thêm sinh viên</h3>
+                        Mã SV: <input type="text" name="masv" placeholder="Mã sinh viên">
+                        Họ và tên: <input type="text" name="fullname" placeholder="Họ và tên">
+                        Giới tính: <input type="text" name="gender" placeholder="Giới tính">
+                        Ngày sinh: <input type="text" name="birth" placeholder="Ngày sinh">
+                        Quê quán:  <input type="text" name="address" placeholder="Quê quán">
+                        Ngành học: <input type="text" name="nganh" placeholder="Ngành học">
+                        <button type="submit" class="save" name="action" value="save">Save</button>
+                    </form>
+                ';
+            }
+
+            if ($action == 'xoa') {
+                $masvXoa = $_POST['masv'];
+                foreach ($_SESSION['Students'] as $index => $student) {
+                    if ($student['masv'] == $masvXoa) {
+                        unset($_SESSION['Students'][$index]);
+                        break;
+                    }
+                }
+            }
+
+            if ($action == 'sua') {
+                $masvSua = $_POST['masv'];
+                foreach ($_SESSION['Students'] as $index => $student) {
+                    if ($student['masv'] == $masvSua) {
+                        echo   '
+                                <form class="themsp" action="themHocSinh.php" method="post">
+                                    <h3>Thêm sinh viên</h3>
+                                    Mã SV: <input type="text" name="masv" value="'.$student['masv'].'" readonly>
+                                    Họ và tên: <input type="text" name="fullname" value="'.$student['name'].'">
+                                    Giới tính: <input type="text" name="gender" value="'.$student['gender'].'">
+                                    Ngày sinh: <input type="text" name="birth" value="'.$student['birth'].'">
+                                    Quê quán:  <input type="text" name="address" value="'.$student['quequan'].'">
+                                    Ngành học: <input type="text" name="nganh" value="'.$student['nganhhoc'].'">
+                                    <button type="submit" class="save" name="action" value="update">Cập nhật</button>
+                                </form>
+                        ';
+                        break;
+                    }
+                }
+            }
+
+            if ($action == "update") {
+                $masv = $_POST['masv'];
+                foreach ($_SESSION['Students'] as $index => $student) {
+                    if ($student['masv'] == $masv) {
+                        $_SESSION['Students'][$index] = [
+                            "masv" => $masv,
+                            "name" => $_POST['fullname'],
+                            "birth" => $_POST['birth'],
+                            "gender" => $_POST['gender'],
+                            "quequan" => $_POST['address'],
+                            "nganhhoc" => $_POST['nganh'],
+                        ];
+                        break;
+                    }
+                }
+            }
+
+        }
     ?>
-    <div class="container">
         <h3 class="title">Danh sách sinh viên</h3>
         <form class="find" action="themHocSinh.php" method="post">
             <input type="text" placeholder="Nhập từ kháo cần tìm"> 
@@ -114,19 +168,49 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($Students as $studentId => $student): ?>
-                        <tr>
-                            <td><?php echo $studentId; ?></td>
-                            <td><?php echo $student['name']; ?></td>
-                            <td><?php echo $student['birth']; ?></td>
-                            <td><?php echo $student['gender']; ?></td>
-                            <td><?php echo $student['quequan']; ?></td>
-                            <td><?php echo $student['nganhhoc']; ?></td>
-                            <td>
-                                <a href="#">Sửa</a>  <a href="#">Xóa</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
+                    <?php 
+                         session_start();
+                         error_reporting(0);
+                         if (!isset( $_SESSION["Students"])) {
+                            $_SESSION["Students"] = [];
+                         }  
+                         
+                         if ($_SERVER['REQUEST_METHOD'] === 'GET' || $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+                                if (isset($_SESSION["Students"])) {
+                                    if (count( $_SESSION["Students"] ) > 0) {
+                                        foreach ($_SESSION["Students"] as $student): 
+                                            echo "<tr>
+                                                <td>{$student['masv']}</td>
+                                                <td>{$student['name']}</td>
+                                                <td>{$student['birth']}</td>
+                                                <td>{$student['gender']}</td>
+                                                <td>{$student['quequan']}</td>
+                                                <td>{$student['nganhhoc']}</td>
+                                                <td>
+                                                    <form action='themHocSinh.php' method='post' style='display:inline;'>
+                                                        <input type='hidden' name='action' value='sua'>
+                                                        <input type='hidden' name='masv' value='{$student['masv']}'>
+                                                        <button type='submit'>Sửa</button>
+                                                    </form>
+                                                    <form action='themHocSinh.php' method='post' style='display:inline;'>
+                                                        <input type='hidden' name='action' value='xoa'>
+                                                        <input type='hidden' name='masv' value='{$student['masv']}'>
+                                                        <button type='submit'>Xóa</button>
+                                                    </form>
+                                                </td>
+                                            </tr>";
+                                        endforeach; 
+                                } else {
+                                    echo "<tr>
+                                            <td colspan='7'>
+                                                Chưa có sinh viên nào.
+                                            </td>
+                                        </tr>";
+                                }
+                            }
+                        }
+                        
+                    ?>
                 </tbody>
                 <tfoot>
                     <tr>
@@ -134,7 +218,6 @@
                             <form action="themHocSinh.php" method="post">
                                 <button type="submit" class="themmoi" name="action" value="them">Thêm mới</button>
                             </form>
-                            
                         </td>
                     </tr>
                 </tfoot>
@@ -144,44 +227,4 @@
 </body>
 </html>
 
-<?php 
-    if (isset($_POST['action'])) {
-        $action = $_POST['action'];
-    }
 
-    if ($action == "them") {
-        echo '
-            <form class="themsp" action="themHocSinh.php" method="post">
-                <h3>Thêm sinh viên</h3>
-                Họ và tên: <input type="text" name="fullname" placeholder="Họ và tên">
-                Giới tính: <input type="text" name="gender" placeholder="Giới tính">
-                Ngày sinh: <input type="text" name="birth" placeholder="Ngày sinh">
-                Quê quán:  <input type="text" name="address" placeholder="Quê quán">
-                Ngành học: <input type="text" name="nganh" placeholder="Ngành học">
-                <button type="submit" class="save" name="action" value="save">Save</button>
-            </form>
-
-
-        ';
-        if(isset($_POST['action']) == "save") {
-            $fullname = $_POST['fullname'];
-            $gender = $_POST['gender'];
-            $address = $_POST['address'];
-            $birth = $_POST['birth'];
-            $nganh = $_POST['nganh'];
-
-            $thongtin = [
-                generateStudentId() => array(
-                    "name" => $fullname,
-                    "birth" => $birth,
-                    "gender" => $gender,
-                    "quequan" => $address,
-                    "nganhhoc" => $nganh,
-                ),
-            ];
-
-            array_push($Students, $thongtin);
-        }
-        
-    }
-?>

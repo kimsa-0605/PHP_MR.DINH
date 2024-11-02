@@ -1,46 +1,47 @@
+<?php
+    error_reporting(0);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        h3 {
+            margin-bottom: 0px;
+        }
+    </style>
 </head>
 <body>
-    <?php 
-        session_start();
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $productName = $_POST["tensp"];
-                $productPrice = $_POST["giasp"];
-
-                if (!isset($_SESSION["products"])) {
-                    $_SERVER["products"] = [];
-                }
-
-                $_SESSION["products"] [] = ['tensp' => $productName, 'giasp' => $productPrice];
-            };
-    ?>
-    <form action="themSanpham.php" method="POST">
+    <form action="themsanPham2.php" method="post">
         <h1>Thêm sản phẩm mới</h1>
-        Tên sản phẩm: <input type="text" name="tensp">
-        <span>Giá sản phẩm <input type="text" name="giasp"></span>
-        <button type="submit">Thêm sản phẩm</button>
+        <p>Tên sản phẩm: <input type="text" name="name" value="<?php echo $_POST['name']?>"></p>
+        <p>Giá sản phẩm: <input type="text" name="price" value="<?php echo $_POST['price']?>"></p>
+        <input type="submit" name="button" value="Thêm sản phẩm">
     </form>
-    
-    <div id="productList">
-        <h2>Danh sách sản phẩm</h2>
-        <ul>
-            <?php
-                if (isset($_SESSION['products']) && count($_SESSION['products']) > 0) {
-                    foreach ($_SESSION['products'] as $product) {
-                        echo "<li>{$product['name']} - {$product['price']} VND</li>";
-                    }
-                } 
-                else {
-                    echo "<li>Chưa có sản phẩm nào.</li>";
-                }
-            ?>
-        </ul>
-    </div>
-
 </body>
 </html>
+
+<?php
+    session_start();
+    error_reporting(0);
+
+    if (!empty($_POST["name"]) && !empty($_POST["price"])) {
+        $sanpham = [
+            'name' => $_POST["name"],
+            "price"=> $_POST["price"]
+        ];
+        if (!isset($_SESSION['sanpham'])) {
+            $_SESSION['sanpham'] = [];
+        }
+        // $_SESSION['sanpham'][] = $sanpham;
+
+        array_push($_SESSION["sanpham"], $sanpham );
+        echo "<h3>Thông tin khách hàng </h3>"."<br>";      
+        foreach ($_SESSION['sanpham'] as $sanpham) {
+            echo "<li>".$sanpham['name']. " - ".$sanpham['price']." VNĐ <br>";
+        }
+    }
+?>
