@@ -5,25 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        form {
-            width: 400px;
+        body {
+            text-align: center;
+        }
+        form, .hienthi {
+            width: 300px;
+            height: auto;
+            background-color: palevioletred;
+        }
+        form .p {
+            margin: 0px;
+            padding-bottom: 10px;
+        }
+
+        form .title {
+            height: 40px;
             display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(226, 19, 88);
+            color: azure;
+        }
+        button {
+            margin-bottom: 10px;
+        }
+
+        .hienthi {
+            display: flex;
+            margin-top: 20px;
             flex-direction: column;
-            gap: 10px;
+            justify-content: center;
+            padding: 10px;
         }
-        .save {
-            width: 60px;
+
+        .hienthi .title {
+            margin: 0px;
+            padding: 0px 0px 10px 0px;
+            font-size: 15px;
+            font-weight: bold;
         }
+
+        .hienthi table, tr, td, th {
+            border-collapse: collapse;
+            border: 1px solid lightgray;
+        }
+
+
+
     </style>
 </head>
 <body>
-    <form action="themHocSinh" method="post">
-        <h3>Thêm sinh viên</h3>
-        Họ và tên: <input type="text" name="fullname" placeholder="Họ và tên">
-        Giới tính: <input type="text" name="gender" placeholder="Giới tính">
-        Ngày sinh: <input type="text" name="address" placeholder="Quê quán">
-        Ngành học: <input type="text" name="nganh" placeholder="Ngành học">
-        <button type="submit" class="save" name="action" value="save">Save</button>
+    <form action="taoVaGhi.php" method="post">
+        <p class="title">TẠO - GHI VÀ ĐỌC FILE VỪA TẠO</p>
+        <p class="p">Ten file: <input type="text" name="ten_file" value=""></p> <br>
+        <p class="p">Ten hang: <input type="text" name="ten_hang" value=""></p> <br>
+        <p class="p">So luong: <input type="number" name="sluong" value=""></p> <br>
+        <p class="p">Don gia: <input type="text" name="dgia" value=""></p>
+
+        <button  type="submit">Ghi và đọc file</button>
     </form>
+    <div class="hienthi">
+        <p class="title">Noi dung cua file: </p>
+        <table>
+            <tr>
+                <th>Ten hang</th>
+                <th>So luong</th>
+                <th>Don gia</th>
+                <th>Thanh tien</th>
+            </tr>
+            <tr>
+                <td>Sua tam</td>
+                <td>2</td>
+                <td>4</td>
+                <td>4</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
