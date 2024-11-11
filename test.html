@@ -3,84 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
-    <style>
-        body {
-            text-align: center;
-        }
-        form, .hienthi {
-            width: 300px;
-            height: auto;
-            background-color: palevioletred;
-        }
-        form .p {
-            margin: 0px;
-            padding-bottom: 10px;
-        }
-
-        form .title {
-            height: 40px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            background-color: rgb(226, 19, 88);
-            color: azure;
-        }
-        button {
-            margin-bottom: 10px;
-        }
-
-        .hienthi {
-            display: flex;
-            margin-top: 20px;
-            flex-direction: column;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .hienthi .title {
-            margin: 0px;
-            padding: 0px 0px 10px 0px;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .hienthi table, tr, td, th {
-            border-collapse: collapse;
-            border: 1px solid lightgray;
-        }
-
-
-
-    </style>
 </head>
 <body>
-    <form action="taoVaGhi.php" method="post">
-        <p class="title">TẠO - GHI VÀ ĐỌC FILE VỪA TẠO</p>
-        <p class="p">Ten file: <input type="text" name="ten_file" value=""></p> <br>
-        <p class="p">Ten hang: <input type="text" name="ten_hang" value=""></p> <br>
-        <p class="p">So luong: <input type="number" name="sluong" value=""></p> <br>
-        <p class="p">Don gia: <input type="text" name="dgia" value=""></p>
-
-        <button  type="submit">Ghi và đọc file</button>
-    </form>
-    <div class="hienthi">
-        <p class="title">Noi dung cua file: </p>
-        <table>
-            <tr>
-                <th>Ten hang</th>
-                <th>So luong</th>
-                <th>Don gia</th>
-                <th>Thanh tien</th>
-            </tr>
-            <tr>
-                <td>Sua tam</td>
-                <td>2</td>
-                <td>4</td>
-                <td>4</td>
-            </tr>
-        </table>
-    </div>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
 </body>
 </html>
